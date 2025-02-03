@@ -57,6 +57,10 @@ export async function LoadInvoiceByModel(prFile: string, prModel: string) {
   for (let i = 0; i < file.length; i++) {
     const values = file[i].split("|");
 
+    if (values[indexFieldC100.register] == "0000") {
+      invoices.push(file[i]);
+    }
+
     if (
       values[indexFieldC100.register] == "C100" &&
       values[indexFieldC100.cod_mod] == prModel
@@ -115,43 +119,23 @@ export async function GenerateSPEDContributions(
 
 function getLineA100FromC100(prLineC100: string[]): string {
   const registerA100 = "|A100|".concat(
-    prLineC100[indexFieldC100.ind_oper],
+    prLineC100[indexFieldC100.ind_oper] + "|",
+    prLineC100[indexFieldC100.ind_emit] + "|",
+    prLineC100[indexFieldC100.cod_part] + "|",
+    prLineC100[indexFieldC100.cod_sit] + "|",
+    prLineC100[indexFieldC100.ser] + "|",
     "|",
-    prLineC100[indexFieldC100.ind_emit],
-    "|",
-    prLineC100[indexFieldC100.cod_part],
-    "|",
-    prLineC100[indexFieldC100.cod_sit],
-    "|",
-    prLineC100[indexFieldC100.ser],
-    "|",
-    "",
-    "|",
-    prLineC100[indexFieldC100.num_doc],
-    "|",
-    prLineC100[indexFieldC100.chv_nfe],
-    "|",
-    prLineC100[indexFieldC100.dt_doc],
-    "|",
-    prLineC100[indexFieldC100.dt_e_s],
-    "|",
-    prLineC100[indexFieldC100.vl_doc],
-    "|",
-    prLineC100[indexFieldC100.ind_pgto],
-    "|",
-    prLineC100[indexFieldC100.vl_desc],
-    "|",
-    prLineC100[indexFieldC100.vl_doc],
-    "|",
-    prLineC100[indexFieldC100.vl_pis],
-    "|",
-    prLineC100[indexFieldC100.vl_doc],
-    "|",
-    prLineC100[indexFieldC100.vl_cofins],
-    "|",
-    "",
-    "|",
-    "",
+    prLineC100[indexFieldC100.num_doc] + "|",
+    prLineC100[indexFieldC100.chv_nfe] + "|",
+    prLineC100[indexFieldC100.dt_doc] + "|",
+    prLineC100[indexFieldC100.dt_e_s] + "|",
+    prLineC100[indexFieldC100.vl_doc] + "|",
+    prLineC100[indexFieldC100.ind_pgto] + "|",
+    prLineC100[indexFieldC100.vl_desc] + "|",
+    prLineC100[indexFieldC100.vl_doc] + "|",
+    prLineC100[indexFieldC100.vl_pis] + "|",
+    prLineC100[indexFieldC100.vl_doc] + "|",
+    prLineC100[indexFieldC100.vl_cofins] + "|",
     "|",
     "|",
     "|"
